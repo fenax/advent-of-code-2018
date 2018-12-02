@@ -1,5 +1,5 @@
 use std::vec::*;
-
+use std::collections::HashSet;
 
 pub fn process(input: &Vec<i32>) -> i32{
    input.iter().sum() 
@@ -19,6 +19,20 @@ pub fn process2(input: &Vec<i32>) -> i32{
        }
    };
    panic!("did not find anything {:?}",store);
+}
+
+pub fn process2hashset(input: &Vec<i32>) -> i32{
+    let mut tot = 0;
+    let mut store: HashSet<i32> = HashSet::new();
+   for x in input.iter().cycle()
+   {
+       store.insert(tot);
+       tot+=x;
+       //println!(" {}",tot);
+       if store.contains(&tot) {return tot};
+   };
+   panic!("did not find anything {:?}",store);
+
 }
 
 
