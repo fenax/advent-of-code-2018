@@ -1,9 +1,9 @@
 use std::vec::*;
 
-struct cnt (bool,bool);
+struct Cnt (bool,bool);
 
 fn count(input: &Vec<&str>) 
--> Vec<cnt>{
+-> Vec<Cnt>{
     input.iter().map(
         |s| {
         let mut old_c = '.';
@@ -22,7 +22,7 @@ fn count(input: &Vec<&str>)
              old_c = *c;
              count+=1;
         });
-        cnt(dub,tri)}).collect()
+        Cnt(dub,tri)}).collect()
 
 }
 
@@ -45,7 +45,6 @@ pub fn process2(input: &Vec<&str>) -> String {
                     }else{
                         None
                     }}).collect()
-
             }
         }
     }
@@ -65,12 +64,16 @@ pub fn process(input: &Vec<&str>) -> i32 {
 
 #[cfg(test)]
 mod tests{
-    use super::*;
 
     #[test]
-    fn day2_2_works(){
+    fn day2_1_works(){
         assert_eq!(::day2_inventory_management_system::process(&vec!("abcdef",
         "bababc","abbcde","abcccd","aabcdd",
         "abcdee","ababab")), 12);
+    }
+    #[test]
+    fn day2_2_works(){ 
+        assert_eq!(::day2_inventory_management_system::process2(
+                &vec!("abcde","fghij","klmno","pqrst","fguij","axcye","wvxyz")),"fgij");
     }
 }
