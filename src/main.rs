@@ -20,5 +20,11 @@ let input_day2 = input_day2.split('\n').collect();
 
 println!("Day 2");
 println!(" {}", day2_inventory_management_system::process(&input_day2));
-println!(" {}", day2_inventory_management_system::process2(&input_day2))
+println!(" {}", day2_inventory_management_system::process2(&input_day2));
+
+let input_day3: String = read_to_string("day3.input").unwrap();
+let input_day3: Vec<Vec<i32>> = input_day3.split('\n').map(
+    |s| s.replace("#","").replace(" @ "," ").replace(","," ").replace(": "," ")
+    .replace("x"," ").split_whitespace().map(str::trim)                                          .filter_map(|s| s.parse().ok()).collect()).filter(|v: &Vec<i32>| v.len()>0).collect();
+println!(" {:?}",input_day3);
 }
