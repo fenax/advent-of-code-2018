@@ -25,6 +25,9 @@ println!(" {}", day2_inventory_management_system::process2(&input_day2));
 let input_day3: String = read_to_string("day3.input").unwrap();
 let input_day3: Vec<Vec<i32>> = input_day3.split('\n').map(
     |s| s.replace("#","").replace(" @ "," ").replace(","," ").replace(": "," ")
-    .replace("x"," ").split_whitespace().map(str::trim)                                          .filter_map(|s| s.parse().ok()).collect()).filter(|v: &Vec<i32>| v.len()>0).collect();
-println!(" {:?}",input_day3);
+    .replace("x"," ").split_whitespace().map(str::trim).filter_map(|s| s.parse().ok()).collect()).filter(|v: &Vec<i32>| v.len()>0).collect();
+
+println!("Day3");
+println!(" {}",day3::process(&input_day3));
+println!(" {}",day3::process_2(&input_day3));
 }
