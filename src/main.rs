@@ -27,7 +27,18 @@ let input_day3: Vec<Vec<i32>> = input_day3.split('\n').map(
     |s| s.replace("#","").replace(" @ "," ").replace(","," ").replace(": "," ")
     .replace("x"," ").split_whitespace().map(str::trim).filter_map(|s| s.parse().ok()).collect()).filter(|v: &Vec<i32>| v.len()>0).collect();
 
+
+
 println!("Day3");
 println!(" {}",day3::process(&input_day3));
 println!(" {}",day3::process_2(&input_day3));
+let input_day4: String = read_to_string("day4.input").unwrap();
+let mut input_day4: Vec<&str> = input_day4.split('\n').filter(|s| s.len()>0).collect();
+input_day4.sort();
+let table : Vec<[&str;3]> = input_day4.iter().map(|s| [&s[15..17],&s[25..26],&s[26..]]).collect();
+
+println!("Day 4");
+
+println!(" {}",day4::process(&table));
+println!(" {}",day4::process2(&table));
 }
