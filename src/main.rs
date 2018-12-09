@@ -41,4 +41,12 @@ println!("Day 4");
 
 println!(" {}",day4::process(&table));
 println!(" {}",day4::process2(&table));
+
+let mut input_day5: String = read_to_string("day5.input").unwrap();
+let i = input_day5.trim_end().len();
+input_day5.truncate(i);
+
+println!("Day 5");
+println!(" {}",day5::process(&input_day5));
+println!(" or {}",day5::other_process(&input_day5));
 }
