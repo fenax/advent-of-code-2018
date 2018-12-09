@@ -13,10 +13,25 @@ pub fn other_process(input: &String)->i32{
 
 pub fn process(input: &String)->i32{
     let mut s = input.as_bytes().to_vec();
+    inprocess(s)
+}
+fn inprocess(mut s: Vec<u8>) -> i32 {
     react2(&mut s);
     let o :Vec<u8> =
         s.iter().filter_map(|x|  if *x != '0' as u8{ Some(*x)}else{None}).collect();
     o.len() as i32
+}
+
+pub fn process2(input: &String) -> i32{
+    let mut s = input.as_bytes().to_vec();
+    (('A' as u8) ..= ('Z' as u8)).map(
+        |l| {inprocess((s.iter().filter_map(
+            |x| {if *x == l || *x == l+32 {
+                None
+            }else{
+                Some(*x)
+            }}).collect::<Vec<u8>>()))})
+    .min().unwrap()
 }
 
 fn react2 (s:  &mut Vec<u8>){

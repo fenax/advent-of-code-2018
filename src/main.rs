@@ -48,5 +48,6 @@ input_day5.truncate(i);
 
 println!("Day 5");
 println!(" {}",day5::process(&input_day5));
-println!(" or {}",day5::other_process(&input_day5));
+//println!(" or {}",day5::other_process(&input_day5));
+println!(" {}",day5::process2(&input_day5));
 }
