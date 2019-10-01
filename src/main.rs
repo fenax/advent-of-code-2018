@@ -73,4 +73,5 @@ let i = input.trim_end().len();
 input.truncate(i);
 
 println!(" {}", day6::process(&input));
+println!(" {}", day6::process2(&input));
 }

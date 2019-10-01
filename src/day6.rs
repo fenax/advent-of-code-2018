@@ -127,12 +127,35 @@ fn prepare(input: &String)->Vec<(isize,isize)>{
    ivec.iter().map(|s|{let mut v= s.split(',');(v.next().unwrap().trim().parse::<isize>().expect("x"),v.next().unwrap().trim().parse::<isize>().expect("y"))}).collect()
 }
 
+fn get_size(input:&Vec<(isize,isize)>)->(isize,isize){
+let mut max_x = 0;                              let mut max_y = 0;                              input.iter().for_each(|(x,y)|{ max_x = cmp::
+max(max_x,*x); max_y = cmp::max(max_y,*y);});
+(max_x+1,max_y+1)
+}
+
+pub fn process2(input: &String)->u32{
+    let mut input = prepare(&input);
+    let (max_x,max_y) = get_size(&input);
+    let mut grid : Map<u32> = Map::new(max_x,max_y);
+    let mut count = 0;
+    for x in 0..max_x {
+        for y in 0..max_y {
+            grid[(x,y)] =
+                input.iter().map(|(x2,y2)|{
+                    ((x as i32- *x2 as i32).abs()
+                    + (y as i32 - *y2 as i32).abs()) as u32
+                } ).sum();
+            if grid[(x,y)] < 10000{
+                count +=1;
+            }
+        }
+    } 
+    count
+}
 pub fn process(input: &String)->i16{
     let mut input = prepare(&input);
-    let mut max_x = 0;
-    let mut max_y = 0;
-    input.iter().for_each(|(x,y)|{ max_x = cmp::max(max_x,*x); max_y = cmp::max(max_y,*y);});
-    let mut grid : Map<Spot> = Map::new(max_x as isize+1,max_y as isize+1);
+    let (max_x,max_y) = get_size(&input);
+    let mut grid : Map<Spot> = Map::new(max_x,max_y);
     let size = input.len();
     println!("{},x{}y{}",size,max_x,max_y);
     for (i,p) in input.iter().enumerate(){
@@ -142,7 +165,6 @@ pub fn process(input: &String)->i16{
     let grid =
         loop{
         let (g,c) = Map::calculate_new(grid);
-        println!("{}",c);
         if c > 0 {
             grid = g;
         }else{
@@ -151,32 +173,32 @@ pub fn process(input: &String)->i16{
     };
     let mut count = vec![0.0;size];
     let mut set = |x,y,v| {
-        let g = grid[(x,y)].clone();
+        let g = grid[(x as isize,y as isize)].clone();
         match g{
             Spot::One(x) =>
                 count[x as usize] = v,
             _ => {},
         }
     };
-    for i in 0..=max_x{
+    for i in 0..max_x{
         set(i,0,f32::INFINITY);
-        set(i,max_y,f32::INFINITY);
+        set(i,max_y-1,f32::INFINITY);
     }
-    for i in 1..=(max_y-1){
+    for i in 1..(max_y-1){
         set(0,i,f32::INFINITY);
-        set(max_x,i,f32::INFINITY);
+        set(max_x-1,i,f32::INFINITY);
     }
 
     let mut inc = |x,y| {
-        let g = grid[(x,y)].clone();
+        let g = grid[(x as isize,y as isize)].clone();
         match g {
             Spot::One(x) =>
                 count[x as usize] += 1.0,
             _ => {},
         }
     };
-    for i in 1..=(max_y-1){
-        for j in 1..=(max_x-1){
+    for i in 1..(max_y-1){
+        for j in 1..(max_x-1){
             inc(j,i);
         }
     }
