@@ -7,7 +7,7 @@ use advent_of_code_2018::*;
 
 fn main() {
     println!("Let's save christmas");
-    day_6();
+    day_9();
 }
 
 fn day_1(){
@@ -74,4 +74,30 @@ input.truncate(i);
 
 println!(" {}", day6::process(&input));
 println!(" {}", day6::process2(&input));
+}
+fn day_7(){
+    println!("Day 7");
+    let mut input: String = read_to_string("day7.input").unwrap();                                  let i = input.trim_end().len();                 input.truncate(i);
+    let mut ivec: Vec<&str> = input.split('\n').filter(|s| s.len()>0).collect();
+
+    let parsed = day7::parse(&ivec);
+    println!(" {}", day7::process(&parsed));
+    println!(" {}", day7::process2(&parsed));
+}
+
+fn day_8(){
+    println!("Day 8");
+    let mut input: String = read_to_string("day8.input").unwrap();
+    let i = input.trim_end().len();
+    input.truncate(i);
+    let mut ivec: Vec<&str> = input.split(' ').filter(|s|s.len()>0).collect();
+
+    let parsed = day8::parse(&ivec);
+    println!(" {}", day8::process(&parsed));
+    println!(" {}", day8::process2(&parsed));
+}
+
+fn day_9(){
+    println!("Day 9");
+    println!("{}", day9::process());
 }
