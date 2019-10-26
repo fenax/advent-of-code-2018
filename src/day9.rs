@@ -13,10 +13,11 @@ pub fn parse(input:&Vec<&str>)->Requires{
 pub fn process()->u32{
     let interval = 23;
     let last = 7105800;
-    let player_count = 491 ;
+    let player_count = 491;
 
     let mut elves:std::vec::Vec<u32>;
-    let mut v = Vec::new();
+    let mut left = Vec::new();
+    let mut right = Vec::new();
     let mut turn = 0;
     let mut current;
     elves =
@@ -27,31 +28,65 @@ pub fn process()->u32{
 
     let mut next_interval = interval + turn;
 
-    v.push(0);
+    left.push(0);
     current = 0;
 
     loop{
-        let mut elf = elves_iter.next().unwrap();
+        let elf = elves_iter.next().unwrap();
+        let len = left.len() + right.len();
+
         turn += 1;
+
         if turn != next_interval{
-            let next_insert =
-                  (current + 2) % v.len();
-            v.insert(next_insert,turn);
-            current = next_insert;
+            if right.is_empty(){
+                let mut tmp = left;
+                tmp.reverse();
+                
+                left = right;
+                right = tmp;
+            }
+            left.push(right.pop().unwrap());
+            left.push(turn);
+            current =
+                  (current + 2) % len;
         }else{
             elves[elf] += turn;
-            let p 
+            if left.len() > 7{
+                for _ in (0..7){
+                    right.push(
+                        left.pop().unwrap());
+                }
+                elves[elf] 
+                    += left.pop().unwrap();
+            }else{
+                let rest = left.len();
+                for _ in (0..rest){
+                    right.push(
+                        left.pop().unwrap());
+                }
+                {
+                    let mut tmp = right;
+                    tmp.reverse();
+                    right = left;
+                    left = tmp;
+                }
+                for _ in (rest..7){
+                    right.push(
+                        left.pop().unwrap());
+                }
+                elves[elf]
+                    += left.pop().unwrap();
+            }
+            left.push(right.pop().unwrap());
+            current
                 = if current >= 7{
                     current - 7
                 }else{
-                    current + v.len() - 7
+                    current + len - 7
                 };
-            elves[elf] += v[p];
-            v.remove(p);
-            current = p;
             next_interval += interval;
         }
-       // println!("{:?}",v);
+      // println!("{:?}{:?}",left,right);
         if turn == last {break}
 
     }
