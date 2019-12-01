@@ -7,7 +7,7 @@ use advent_of_code_2018::*;
 
 fn main() {
     println!("Let's save christmas");
-    day_10();
+    day_11();
 }
 
 fn day_1(){
@@ -114,4 +114,10 @@ println!("Day 10");
     let parsed = day10::parse(&ivec);
     println!("{}",day10::process(&parsed));
     println!("{}",day10::process2(&parsed));
+}
+fn day_11(){
+    println!("Day 11");
+    let parsed = day11::parse(1723);
+    println!("{:?}",day11::process(&parsed));
+    println!("{:?}",day11::process2(&parsed));
 }
